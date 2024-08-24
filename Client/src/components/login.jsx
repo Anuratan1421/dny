@@ -10,7 +10,7 @@ function Login({ setEmail }) {
   function handleSubmit(event) {
     event.preventDefault();
 
-    axios.post("http://localhost:3000/", { email, password })
+    axios.post("https://dny-wko4.vercel.app/", { email, password })
       .then(response => {
         if (response.data.success) {
           setEmail(email);

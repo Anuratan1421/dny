@@ -11,12 +11,13 @@ import PrivateRoute from "./PrivateRoute";
 function App() {
   const [notes, setNotes] = useState([]);
   const [email, setEmail] = useState("");
+  axios.defaults.withCredentials=true
 
   useEffect(() => {
     const storedEmail = localStorage.getItem("email");
     if (storedEmail) {
       setEmail(storedEmail);
-      axios.get("http://localhost:3000/notes", {
+      axios.get("https://dny-wko4.vercel.app/notes", {
         params: { email: storedEmail }
       })
         .then(response => {
@@ -30,7 +31,7 @@ function App() {
 
   function addNote(newNote) {
     if (email) {
-      axios.post("http://localhost:3000/notes", { email, ...newNote })
+      axios.post("https://dny-wko4.vercel.app/notes", { email, ...newNote })
         .then(response => {
           setNotes(prevNotes => [...prevNotes, newNote]);
         })
@@ -42,7 +43,7 @@ function App() {
 
   function shareNote(title, content, shareEmail) {
     if (shareEmail) {
-      axios.post("http://localhost:3000/notes", { email: shareEmail, title, content })
+      axios.post("https://dny-wko4.vercel.app/notes", { email: shareEmail, title, content })
         .then(response => {
           alert("Note shared successfully!"); // Display success alert
           setIsSharing(false);
@@ -56,7 +57,7 @@ function App() {
 
   function deleteNote(title, content) {
     if (email) {
-      axios.delete("http://localhost:3000/notes", {
+      axios.delete("https://dny-wko4.vercel.app/notes", {
         data: { title, content, email }
       })
         .then(response => {
