@@ -10,8 +10,7 @@ app.use(express.json()); // Parse incoming JSON requests
 
 // CORS Configuration
 app.use(cors({
-  origin: "https://dny-keeper-app.vercel.app",
-  origin: "https://dny-keeper-app.vercel.app/notes", // Replace with your frontend URL
+  origin: "https://dny-keeper-app.vercel.app", // Replace with your frontend URL
   methods: ["POST", "GET", "DELETE"],
   credentials: true // Allow credentials
 }));
@@ -222,6 +221,7 @@ app.delete("/notes", async (req, res) => {
   }
 });
 
+// Export the server as a serverless function
 app.listen(3001, () => {
   console.log("Server is Running")
 })
