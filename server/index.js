@@ -58,6 +58,18 @@ function decrypt(text) {
   return decrypted.toString();
 }
 
+// Logging middleware
+app.use((req, res, next) => {
+  console.log(`Incoming request: ${req.method} ${req.url}`);
+  next();
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(`Error occurred: ${err.message}`);
+  res.status(500).send('Internal Server Error');
+});
+
 // Signup route
 app.post("/signup", async (req, res) => {
   const { email, password } = req.body;
