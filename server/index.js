@@ -7,21 +7,15 @@ import crypto from 'crypto';
 
 const app = express();
 app.use(express.json()); // Parse incoming JSON requests
-app.use(cors()); // Enable CORS for cross-origin requests
-dotenv.config();
 
-app.options('*', cors({
-  origin: ["https://dny-keeper-app.vercel.app"],
-  methods: ["POST", "GET", "PUT", "DELETE", "OPTIONS"],
-  credentials: true
-}));
-
-// Middleware for handling CORS
+// CORS Configuration
 app.use(cors({
-  origin: ["https://dny-keeper-app.vercel.app"],
-  methods: ["POST", "GET", "PUT", "DELETE"],
-  credentials: true
+  origin: "https://dny-keeper-app.vercel.app", // Replace with your frontend URL
+  methods: ["POST", "GET", "DELETE"],
+  credentials: true // Allow credentials
 }));
+
+dotenv.config();
 
 // PostgreSQL client setup
 const db = new pg.Client({
@@ -31,7 +25,7 @@ const db = new pg.Client({
   password: process.env.PG_PASSWORD,
   port: process.env.PG_PORT,
   ssl: {
-      rejectUnauthorized: false
+    rejectUnauthorized: false
   }
 });
 
@@ -64,7 +58,7 @@ function decrypt(text) {
   return decrypted.toString();
 }
 
-// Routes
+// Signup route
 app.post("/signup", async (req, res) => {
   const { email, password } = req.body;
 
@@ -81,7 +75,7 @@ app.post("/signup", async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     // Insert the new user into the database
-    const result = await db.query(
+    await db.query(
       "INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *",
       [email, hashedPassword]
     );
@@ -94,7 +88,7 @@ app.post("/signup", async (req, res) => {
 });
 
 // Login route
-app.post("/", async (req, res) => {
+app.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -149,8 +143,7 @@ app.post("/notes", async (req, res) => {
     const encryptedContent = encrypt(content || '');
 
     // Insert the note
-    const query = "INSERT INTO notes (email, title, content) VALUES ($1, $2, $3)";
-    await db.query(query, [email, encryptedTitle, encryptedContent]);
+    await db.query("INSERT INTO notes (email, title, content) VALUES ($1, $2, $3)", [email, encryptedTitle, encryptedContent]);
 
     res.status(201).send("Note added successfully");
   } catch (err) {
@@ -168,8 +161,7 @@ app.get("/notes", async (req, res) => {
   }
 
   try {
-    const query = "SELECT * FROM notes WHERE email = $1";
-    const result = await db.query(query, [email]);
+    const result = await db.query("SELECT * FROM notes WHERE email = $1", [email]);
 
     // Decrypt the title and content before sending it to the client
     const notes = result.rows.map(note => ({
