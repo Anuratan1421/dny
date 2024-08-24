@@ -1,0 +1,245 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+html {
+  font-family: "Montserrat", sans-serif;
+}
+body {
+  background: #eee;
+  padding: 0px;
+  background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
+  
+}
+
+header {
+  background-color: #f5ba13;
+  margin: auto -16px;
+  padding: 16px 32px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  color: #fff;
+  font-family: "McLaren", cursive;
+  font-weight: 200;
+ 
+}
+
+footer {
+  position: absolute;
+  text-align: center;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;
+}
+
+footer p {
+  color: #000000;
+  font-size: 15px;
+}
+.note {
+  background: #fff;
+  border-radius: 7px;
+  box-shadow: 0 2px 5px #ccc;
+  padding: 10px;
+  width: auto;
+  min-width: 500px;
+  max-width: 700px;
+  min-height: 250px;
+  margin: 16px;
+  float: left;
+}
+.note h1 {
+  font-size: 30px;
+  margin-bottom: 6px;
+}
+.note p {
+  font-size: 30px;
+  margin-bottom: 10px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.notebutton {
+  position: relative;
+  float: right;
+ 
+  margin-right: 10px;
+  color: #00bfff;;
+  border: none;
+  padding: 10px;
+  font-size: 24px;
+  width: auto;
+  height: 36px;
+  cursor: pointer;
+  outline: none;
+}
+
+.sharebutton{
+  margin-right: 10px;
+  color: #00bfff;
+  border: none;
+  padding: 10px;
+  font-size: 24px;
+  width: auto;
+  height: 36px;
+  cursor: pointer;
+  outline: none;
+}
+
+form {
+  position: relative;
+  width: 600px;
+  height: auto;
+  margin: 30px auto 20px auto;
+  background: #fff;
+  padding: 15px;
+  border-radius: 7px;
+  box-shadow: 0 1px 5px rgb(138, 137, 137);
+}
+.forminput {
+  width: 100%;
+  border: none;
+  padding: 4px;
+  outline: none;
+  font-size: 30px;
+  font-family: inherit;
+  resize: none;
+}
+.formbutton {
+  position: absolute;
+  right: 18px;
+  bottom: -28px;
+  background: #f5ba13;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  font-weight: 600;
+  font-size: 25px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  outline: none;
+}
+
+
+
+/* Basic styling for the login container */
+.login {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  background-color: white; /* Light background color */
+  margin: 0px;
+  padding: 0px;
+}
+
+/* Styling for the login image */
+.loginimg {
+  max-width: 100%;
+  object-fit: cover;
+  height: 400px; /* Maintain aspect ratio */
+
+}
+
+/* Styling for the form container */
+.loginform {
+  background-color: #fff; /* White background for the form */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  padding: 20px; /* Padding inside the form */
+  width: 400px;
+
+  
+  font-size: 28px;
+}
+
+/* Styling for labels */
+.loginlabel {
+  display: block; /* Block display for labels */
+  margin-bottom: 15px; /* Space below label */
+  font-weight: bold; /* Bold font for labels */
+  color: #333; /* Dark gray color for text */
+  font-size: 25px;
+}
+
+/* Styling for input fields */
+.inputlabel {
+  width: 100%; /* Full width of the container */
+  padding: 10px; /* Padding inside input fields */
+  border: 1px solid #c9c6c6; /* Light gray border */
+  border-radius: 4px; /* Slightly rounded corners */
+  margin-bottom: 16px; /* Space below input fields */
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
+  font-size: 20px;
+}
+
+/* Styling for the submit button */
+.logout {
+  background-color: white; /* Blue background color */
+  color: black; /* White text color */
+  border: none; /* Remove default border */
+  padding: 0px 10px; /* Padding inside the button */
+  border-radius: 30px; /* Slightly rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 25px; /* Font size */
+  font-weight: 500;
+  width: 100px;
+  height: 35px;
+ 
+}
+
+/* Button hover effect */
+
+
+/* Styling for the sign-up link */
+.signup {
+  margin-top: 16px; /* Space above the sign-up text */
+  font-size: 20px; /* Font size for sign-up text */
+}
+
+/* Styling for the sign-up link */
+.signup a {
+  color: #007bff; /* Blue color for the link */
+  text-decoration: none; /* Remove underline from the link */
+}
+
+.signup a:hover {
+  text-decoration: underline; /* Underline the link on hover */
+}
+
+
+.loginbutton1{
+  background-color: rgb(248, 193, 29); /* Blue background color */
+  color: white; /* White text color */
+  border: none; /* Remove default border */
+  /* Padding inside the button */
+  border-radius: 30px; /* Slightly rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 25px; /* Font size */
+  font-weight: 500;
+  width: 100px;
+  height: 50px;
+  margin-top: 20px;
+  font-size: 20px;
+
+}
+
+
+
+.signup {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+height: auto;
+  margin: 0px;
+  padding: 0px;
+}
