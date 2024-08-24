@@ -2,42 +2,34 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
-import Login from "./login";
+import Login from "./Login";
 import CreateArea from "./CreateArea";
 import Note from "./Note";
 import axios from "axios";
 import Signup from "./Signup";
 import PrivateRoute from "./PrivateRoute";
 
+const API_BASE_URL = "https://dny-wko4.vercel.app"; // Replace with your actual backend URL
+
 function App() {
   const [notes, setNotes] = useState([]);
   const [email, setEmail] = useState("");
-  axios.defaults.withCredentials = true;
+axios.defaults.withCredentials=true;
   useEffect(() => {
     const storedEmail = localStorage.getItem("email");
     if (storedEmail) {
       setEmail(storedEmail);
     }
   }, []);
-  
+
   useEffect(() => {
     if (email) {
-      axios.get("https://dny-wko4.vercel.app/notes", {
-        params: { email }
-      })
-      .then(response => {
-        setNotes(response.data);
-      })
-      .catch(error => {
-        console.error("Error fetching notes:", error);
-      });
+      fetchNotes(email);
     }
   }, [email]);
-  
-  
 
   const fetchNotes = (userEmail) => {
-    axios.get("https://dny-wko4.vercel.app/notes", { params: { email: userEmail } })
+    axios.get(`${API_BASE_URL}/notes`, { params: { email: userEmail } })
       .then(response => {
         setNotes(response.data);
       })
@@ -48,8 +40,8 @@ function App() {
 
   function addNote(newNote) {
     if (email) {
-      axios.post("https://dny-wko4.vercel.app/notes", { email, ...newNote })
-        .then(response => {
+      axios.post(`${API_BASE_URL}/notes`, { email, ...newNote })
+        .then(() => {
           setNotes(prevNotes => [...prevNotes, newNote]);
         })
         .catch(error => {
@@ -60,8 +52,8 @@ function App() {
 
   function shareNote(title, content, shareEmail) {
     if (shareEmail) {
-      axios.post("https://dny-wko4.vercel.app/notes", { email: shareEmail, title, content })
-        .then(response => {
+      axios.post(`${API_BASE_URL}/notes`, { email: shareEmail, title, content })
+        .then(() => {
           alert("Note shared successfully!");
         })
         .catch(error => {
@@ -69,12 +61,13 @@ function App() {
         });
     }
   }
+
   function deleteNote(title, content) {
     if (email) {
-      axios.delete("https://dny-wko4.vercel.app/notes", {
+      axios.delete(`${API_BASE_URL}/notes`, {
         data: { title, content, email }
       })
-      .then(response => {
+      .then(() => {
         setNotes(prevNotes => prevNotes.filter(note =>
           (!title || note.title !== title) &&
           (!content || note.content !== content)
@@ -85,7 +78,6 @@ function App() {
       });
     }
   }
-  
 
   function logout() {
     localStorage.removeItem("email");
