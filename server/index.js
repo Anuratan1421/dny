@@ -10,6 +10,14 @@ app.use(express.json()); // Parse incoming JSON requests
 app.use(cors()); // Enable CORS for cross-origin requests
 dotenv.config();
 
+app.use(cors(
+  {
+      origin: ["https://deploy-mern-frontend.vercel.app"],
+      methods: ["POST", "GET"],
+      credentials: true
+  }
+));
+
 // PostgreSQL client setup
 const db = new pg.Client({
   user: process.env.PG_USER,
