@@ -51,7 +51,7 @@ function decrypt(text) {
   return decrypted.toString();
 }
 
-// Signup route
+// Routes
 app.post("/signup", async (req, res) => {
   const { email, password } = req.body;
 
@@ -204,6 +204,5 @@ app.delete("/notes", async (req, res) => {
   }
 });
 
-app.listen(3000, () => {
-  console.log("Server running on port 3000");
-});
+// Export the server as a serverless function
+export default app;
