@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
-import Login from "./Login";
+import Login from "./login";
 import CreateArea from "./CreateArea";
 import Note from "./Note";
 import axios from "axios";
