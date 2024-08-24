@@ -17,7 +17,7 @@ function App() {
     const storedEmail = localStorage.getItem("email");
     if (storedEmail) {
       setEmail(storedEmail);
-      axios.get("https://dny-keeper-app.vercel.app/notes", {
+      axios.get("https://dny-wko4.vercel.app/notes", {
         params: { email: storedEmail }
       })
         .then(response => {
@@ -31,7 +31,7 @@ function App() {
 
   function addNote(newNote) {
     if (email) {
-      axios.post("https://dny-keeper-app.vercel.app/notes", { email, ...newNote })
+      axios.post("https://dny-wko4.vercel.app/notes", { email, ...newNote })
         .then(response => {
           setNotes(prevNotes => [...prevNotes, newNote]);
         })
@@ -43,7 +43,7 @@ function App() {
 
   function shareNote(title, content, shareEmail) {
     if (shareEmail) {
-      axios.post("https://dny-keeper-app.vercel.app/notes", { email: shareEmail, title, content })
+      axios.post("https://dny-wko4.vercel.app/notes", { email: shareEmail, title, content })
         .then(response => {
           alert("Note shared successfully!"); // Display success alert
           setIsSharing(false);
@@ -57,7 +57,7 @@ function App() {
 
   function deleteNote(title, content) {
     if (email) {
-      axios.delete("https://dny-keeper-app.vercel.app/notes", {
+      axios.delete("https://dny-wko4.vercel.app/notes", {
         data: { title, content, email }
       })
         .then(response => {

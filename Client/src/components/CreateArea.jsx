@@ -39,7 +39,7 @@ function CreateArea(props) {
     });
 
     try {
-      await axios.post("https://dny-keeper-app.vercel.app/notes", note);
+      await axios.post("https://dny-wko4.vercel.app/notes", note);
       // Optionally, you could also handle the response here if needed
     } catch (error) {
       console.error("Error adding note:", error);

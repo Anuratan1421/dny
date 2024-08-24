@@ -17,7 +17,7 @@ function Signup() {
     }
 
     try {
-      const response = await axios.post("https://dny-keeper-app.vercel.app/signup", {
+      const response = await axios.post("https://dny-wko4.vercel.app/signup", {
         email,
         password,
       });
