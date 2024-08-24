@@ -166,16 +166,18 @@ app.post("/notes", async (req, res) => {
 
 // GET route to fetch notes by user email
 app.get("/notes", async (req, res) => {
+  console.log("Received GET /notes request with email:", req.query.email);
   const email = req.query.email;
 
   if (!email) {
+    console.log("No email provided.");
     return res.status(400).send("Email is required.");
   }
 
   try {
     const result = await db.query("SELECT * FROM notes WHERE email = $1", [email]);
+    console.log("Notes fetched:", result.rows);
 
-    // Decrypt the title and content before sending it to the client
     const notes = result.rows.map(note => ({
       ...note,
       title: decrypt(note.title),
@@ -184,10 +186,11 @@ app.get("/notes", async (req, res) => {
 
     res.status(200).json(notes);
   } catch (err) {
-    console.error("Error:", err);
+    console.error("Error fetching notes:", err);
     res.status(500).send("Error fetching notes");
   }
 });
+
 
 // DELETE route for notes
 app.delete("/notes", async (req, res) => {
