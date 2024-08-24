@@ -8,26 +8,35 @@ import Note from "./Note";
 import axios from "axios";
 import Signup from "./Signup";
 import PrivateRoute from "./PrivateRoute";
+
 function App() {
   const [notes, setNotes] = useState([]);
   const [email, setEmail] = useState("");
-  axios.defaults.withCredentials=true
+  axios.defaults.withCredentials = true;
 
   useEffect(() => {
     const storedEmail = localStorage.getItem("email");
     if (storedEmail) {
       setEmail(storedEmail);
-      axios.get("https://dny-wko4.vercel.app/notes", {
-        params: { email: storedEmail }
-      })
-        .then(response => {
-          setNotes(response.data);
-        })
-        .catch(error => {
-          console.error("Error fetching notes:", error);
-        });
+      fetchNotes(storedEmail);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (email) {
+      fetchNotes(email);
     }
   }, [email]);
+
+  const fetchNotes = (userEmail) => {
+    axios.get("https://dny-wko4.vercel.app/notes", { params: { email: userEmail } })
+      .then(response => {
+        setNotes(response.data);
+      })
+      .catch(error => {
+        console.error("Error fetching notes:", error);
+      });
+  };
 
   function addNote(newNote) {
     if (email) {
@@ -45,9 +54,7 @@ function App() {
     if (shareEmail) {
       axios.post("https://dny-wko4.vercel.app/notes", { email: shareEmail, title, content })
         .then(response => {
-          alert("Note shared successfully!"); // Display success alert
-          setIsSharing(false);
-          setShareEmail(""); // Clear the email input after sharing
+          alert("Note shared successfully!");
         })
         .catch(error => {
           console.error("Error sharing note:", error);
@@ -71,8 +78,6 @@ function App() {
         });
     }
   }
-
-  
 
   function logout() {
     localStorage.removeItem("email");
@@ -99,7 +104,7 @@ function App() {
                       title={note.title}
                       content={note.content}
                       onDelete={deleteNote}
-                      onShare={shareNote} // Pass the onShare prop here
+                      onShare={shareNote}
                     />
                   ))}
                 </div>
