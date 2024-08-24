@@ -169,10 +169,7 @@ app.get("/notes", async (req, res) => {
   console.log("Received GET /notes request with email:", req.query.email);
   const email = req.query.email;
 
-  if (!email) {
-    console.log("No email provided.");
-    return res.status(400).send("Email is required.");
-  }
+
 
   try {
     const result = await db.query("SELECT * FROM notes WHERE email = $1", [email]);
@@ -225,4 +222,6 @@ app.delete("/notes", async (req, res) => {
 });
 
 // Export the server as a serverless function
-export default app;
+app.listen(3001, () => {
+  console.log("Server is Running")
+})
