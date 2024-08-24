@@ -4,6 +4,10 @@ import cors from "cors";
 import bcrypt from "bcrypt";
 import dotenv from 'dotenv';
 import crypto from 'crypto';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+
 
 const app = express();
 app.use(express.json()); // Parse incoming JSON requests
@@ -28,6 +32,10 @@ const db = new pg.Client({
     rejectUnauthorized: false
   }
 });
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Connect to the database
 db.connect((err) => {
@@ -164,6 +172,12 @@ app.post("/notes", async (req, res) => {
   }
 });
 
+
+// Assuming you store user email in a session variable called 'userEmail'
+
+
+
+
 // GET route to fetch notes by user email
 app.get("/notes", async (req, res) => {
   console.log("Received GET /notes request with email:", req.query.email);
@@ -220,6 +234,23 @@ app.delete("/notes", async (req, res) => {
     res.status(500).send("Error deleting note");
   }
 });
+
+
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'client/build')));
+
+// Handle all other requests by serving the index.html file
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build/index.html'));
+});
+
+
+// Handle undefined routes
+app.use((req, res, next) => {
+  res.status(404).json({ error: "Route not found" });
+});
+
 
 // Export the server as a serverless function
 app.listen(3001, () => {

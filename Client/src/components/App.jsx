@@ -13,13 +13,17 @@ function App() {
   const [notes, setNotes] = useState([]);
   const [email, setEmail] = useState("");
   axios.defaults.withCredentials = true;
-
   useEffect(() => {
     const storedEmail = localStorage.getItem("email");
     if (storedEmail) {
       setEmail(storedEmail);
+    }
+  }, []);
+  
+  useEffect(() => {
+    if (email) {
       axios.get("https://dny-wko4.vercel.app/notes", {
-        params: { email: storedEmail }  // Ensure this matches your Express route parameter
+        params: { email }
       })
       .then(response => {
         setNotes(response.data);
@@ -29,6 +33,7 @@ function App() {
       });
     }
   }, [email]);
+  
   
 
   const fetchNotes = (userEmail) => {
@@ -64,23 +69,23 @@ function App() {
         });
     }
   }
-
   function deleteNote(title, content) {
     if (email) {
       axios.delete("https://dny-wko4.vercel.app/notes", {
         data: { title, content, email }
       })
-        .then(response => {
-          setNotes(prevNotes => prevNotes.filter(note =>
-            (title && note.title !== title) ||
-            (content && note.content !== content)
-          ));
-        })
-        .catch(error => {
-          console.error("Error deleting note:", error);
-        });
+      .then(response => {
+        setNotes(prevNotes => prevNotes.filter(note =>
+          (!title || note.title !== title) &&
+          (!content || note.content !== content)
+        ));
+      })
+      .catch(error => {
+        console.error("Error deleting note:", error);
+      });
     }
   }
+  
 
   function logout() {
     localStorage.removeItem("email");
