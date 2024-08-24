@@ -238,18 +238,7 @@ app.delete("/notes", async (req, res) => {
 
 
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, 'client/build')));
 
-// Handle all other requests by serving the index.html file
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build/index.html'));
-});
-
-
-// Handle undefined routes
-app.use((req, res, next) => {
-  res.status(404).json({ error: "Route not found" });
-});
 
 
 // Export the server as a serverless function
