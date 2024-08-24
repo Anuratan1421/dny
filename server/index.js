@@ -10,13 +10,18 @@ app.use(express.json()); // Parse incoming JSON requests
 app.use(cors()); // Enable CORS for cross-origin requests
 dotenv.config();
 
-app.use(cors(
-  {
-      origin: ["https://dny-keeper-app.vercel.app"],
-      methods: ["POST", "GET"],
-      credentials: true
-  }
-));
+app.options('*', cors({
+  origin: ["https://dny-keeper-app.vercel.app"],
+  methods: ["POST", "GET", "PUT", "DELETE", "OPTIONS"],
+  credentials: true
+}));
+
+// Middleware for handling CORS
+app.use(cors({
+  origin: ["https://dny-keeper-app.vercel.app"],
+  methods: ["POST", "GET", "PUT", "DELETE"],
+  credentials: true
+}));
 
 // PostgreSQL client setup
 const db = new pg.Client({
