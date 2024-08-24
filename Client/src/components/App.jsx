@@ -18,15 +18,18 @@ function App() {
     const storedEmail = localStorage.getItem("email");
     if (storedEmail) {
       setEmail(storedEmail);
-      fetchNotes(storedEmail);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (email) {
-      fetchNotes(email);
+      axios.get("https://dny-wko4.vercel.app/notes", {
+        params: { email: storedEmail }  // Ensure this matches your Express route parameter
+      })
+      .then(response => {
+        setNotes(response.data);
+      })
+      .catch(error => {
+        console.error("Error fetching notes:", error);
+      });
     }
   }, [email]);
+  
 
   const fetchNotes = (userEmail) => {
     axios.get("https://dny-wko4.vercel.app/notes", { params: { email: userEmail } })
