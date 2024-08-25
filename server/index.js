@@ -105,7 +105,7 @@ app.post("/signup", async (req, res) => {
 });
 
 // Login route
-app.post("/", async (req, res) => {
+app.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -217,8 +217,6 @@ app.delete("/notes", async (req, res) => {
     res.status(500).send("Error deleting note");
   }
 });
-
-// Serve static files from the React app (if needed)
 
 // Start the server
 app.listen(3001, () => {
