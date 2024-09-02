@@ -30,9 +30,9 @@ function Note({ title, content, onDelete, onShare }) {
         <h1>{title}</h1>
         <p>{content}</p>
       </div>
-      <button className="notebutton" onClick={handleDeleteClick}>
+      {/* <button className="notebutton" onClick={handleDeleteClick}>
         DELETE
-      </button>
+      </button> */}
       <button className="notebutton" onClick={handleShareClick}>
         SHARE
       </button>
