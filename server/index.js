@@ -12,7 +12,7 @@ app.use(express.json()); // Parse incoming JSON requests
 
 // CORS Configuration
 app.use(cors({
-  origin: "https://dny-keeper-app.vercel.app", // Replace with your frontend URL
+  origin: "https://dny1421.vercel.app/", // Replace with your frontend URL
   methods: ["POST", "GET", "DELETE"],
   credentials: true // Allow credentials
 }));
